@@ -1,0 +1,20 @@
+version: '3'
+services:
+  shepherd:
+    container_name: 'shepherd'
+    image: 'tomcat'
+    ports:
+      - '8080:8080'
+    links:
+      - 'mysql'
+    depends_on:
+      - 'mysql'
+    volumes:
+      - ./tomcat:/usr/local/tomcat/webapps
+  mysql:
+    container_name: 'mysql'
+    image: 'mysql'
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: CowSaysMoo
